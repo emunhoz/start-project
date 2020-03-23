@@ -1,0 +1,12 @@
+{
+    "recommendations": [
+        "dbaeumer.vscode-eslint",
+        "numso.prettier-standard-vscode",
+        "chenxsan.vscode-standardjs",
+        "timonvs.reactsnippetsstandard",
+        "capaj.vscode-standardjs-snippets",
+        "stylelint.vscode-stylelint",
+        "jpoissonnier.vscode-styled-components"
+    ],
+    "unwantedRecommendations": []
+}
