@@ -2,47 +2,39 @@ version: 2.1
 orbs:
   node: circleci/node@1.1.6
 jobs:
-  build-and-test:
-    executor:
-      name: node/default
+  build:
+    docker:
+      - image: circleci/node:10
     steps:
-      - checkout
-      - node/with-cache:
-          steps:
-            - run: yarn
-            - run: yarn test
-  deploy:
-    executor:
-      name: node/default
-    steps:
-      - checkout
-      - node/with-cache:
-          steps:
-            - run: yarn
-            - run: yarn test
-            - run: GITHUB_TOKEN=$GITHUB_TOKEN yarn release
+      - checkout # special step to check out source code to working directory
 
-local_workflow: &local_workflow
-  filters:
-    branches:
-      ignore: master
-    tags:
-      ignore: /.*/
+      - run:
+          name: Install dependencies with yarn
+          command: yarn
 
-production_workflow: &production_workflow
-  filters:
-    branches:
-      ignore: /.*/
-    tags:
-      only: /^v.*/
+      - run:
+          name: Run tests
+          # Runs jest with "--maxWorkers=2" argument to avoid OOM issues
+          command: yarn test # replace with `yarn test` if using yarn
+  build_master:
+    docker: 
+      - image: circleci/node:10
+    steps: 
+      - checkout 
+      - run:
+          name: build-master-step
+          command: echo "I build only for master"
 
 workflows:
-    build-and-test:
-      jobs:
-        - build-and-test:
-          <<: *local_workflow
-    production:
-      jobs:
-        - deploy:
-          <<: *production_workflow
+  version: 2
+  Build and Test:
+    jobs:
+      - build
+  build_master:
+    jobs:
+      - build_master:
+          filters:
+            branches:
+              only:
+                - master
 
