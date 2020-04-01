@@ -22,17 +22,23 @@ jobs:
             - run: yarn test
             - run: GITHUB_TOKEN=$GITHUB_TOKEN yarn release
 
+local_workflow: &local_workflow
+  filters:
+    branches:
+      ignore: master
+    tags:
+      ignore: /.*/
+
 production_workflow: &production_workflow
   filters:
     branches:
-      only: master
-    tags:
-      ignore: /.*/
+      only: master         
 
 workflows:
     build-and-test:
       jobs:
-        - build-and-test
+        - build-and-test:
+          <<: *local_workflow
     production:
       jobs:
         - deploy:
