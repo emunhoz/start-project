@@ -11,8 +11,30 @@ jobs:
           steps:
             - run: yarn
             - run: yarn test
-            - run: GITHUB_TOKEN=$GITHUB_TOKEN yarn release 
+  deploy:
+    executor:
+      name: node/default
+    steps:
+      - checkout
+      - node/with-cache:
+          steps:
+            - run: yarn
+            - run: yarn test
+            - run: GITHUB_TOKEN=$GITHUB_TOKEN yarn release
+
+production_workflow: &production_workflow
+  filters:
+    branches:
+      only: master
+    tags:
+      ignore: /.*/
+
 workflows:
     build-and-test:
       jobs:
         - build-and-test
+    production:
+      jobs:
+        - deploy:
+          <<: *production_workflow
+
