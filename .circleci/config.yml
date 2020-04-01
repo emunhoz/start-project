@@ -32,7 +32,9 @@ local_workflow: &local_workflow
 production_workflow: &production_workflow
   filters:
     branches:
-      only: master         
+      ignore: /.*/
+    tags:
+      only: /^v.*/
 
 workflows:
     build-and-test:
