@@ -17,19 +17,25 @@ jobs:
           # Runs jest with "--maxWorkers=2" argument to avoid OOM issues
           command: yarn test # replace with `yarn test` if using yarn
   build_master:
-    docker: 
-      - image: circleci/node:10
-    steps: 
-      - checkout 
-      - run:
-          name: build-master-step
-          command: echo "I build only for master"
+    executor:
+      name: node/default
+    steps:
+      - checkout
+      - node/with-cache:
+          steps:
+            - run: yarn
+            - run: yarn test
+            - run: GITHUB_TOKEN=$GITHUB_TOKEN yarn release
 
 workflows:
   version: 2
   Build and Test:
     jobs:
-      - build
+      - build:
+          filters:
+            branches:
+              ignore:
+                - master
   build_master:
     jobs:
       - build_master:
