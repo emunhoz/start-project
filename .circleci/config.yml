@@ -11,7 +11,7 @@ jobs:
           steps:
             - run: yarn
             - run: yarn test
-            - run: make release
+            - run: GITHUB_TOKEN=$GITHUB_TOKEN yarn release 
 workflows:
     build-and-test:
       jobs:
