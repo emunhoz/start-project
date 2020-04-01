@@ -11,6 +11,7 @@ jobs:
           steps:
             - run: yarn
             - run: yarn test
+            - run: make release
 workflows:
     build-and-test:
       jobs:
