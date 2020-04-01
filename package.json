@@ -17,7 +17,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "stylelint": "stylelint",
-    "release": "semantic-release --no-ci"
+    "release": "semantic-release"
   },
   "eslintConfig": {
     "extends": "react-app"
