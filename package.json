@@ -62,7 +62,7 @@
     "eslint-plugin-prettier": "^3.1.2",
     "eslint-plugin-standard": "^4.0.1",
     "git-commit-msg-linter": "^2.4.2",
-    "semantic-release": "^17.0.4",
+    "semantic-release": "^19.0.3",
     "standard": "^14.3.3",
     "stylelint": "^13.2.1",
     "stylelint-config-prettier": "^8.0.1",
